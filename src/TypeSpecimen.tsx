@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import { CheckCircle2, ChevronDown, Grid2X2, Info, Type } from "lucide-react";
 import type { FontAsset, Settings } from "./types";
+import SettingHelp from "./SettingHelp";
 
 export const samples = {
   mixed:
@@ -103,10 +104,14 @@ export default function TypeSpecimen({
             </span>
           </div>
           <div className="specimen-default-source">
-            <label>
-              Default
+            <div>
+              <span className="setting-label">
+                <label htmlFor="default-font">Default</label>
+                <SettingHelp label="Default font" />
+              </span>
               <span className="select-wrap">
                 <select
+                  id="default-font"
                   aria-label="Default font สำหรับเปรียบเทียบ"
                   value={baseline}
                   onChange={(e) => setBaseline(e.target.value)}
@@ -116,7 +121,7 @@ export default function TypeSpecimen({
                 </select>
                 <ChevronDown size={14} />
               </span>
-            </label>
+            </div>
           </div>
         </div>
         <div className="sample-tabs">

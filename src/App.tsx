@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -38,6 +39,7 @@ import {
 } from "./types";
 import { deleteFont, getFonts, loadSettings, storeFont } from "./storage";
 import TypeSpecimen, { samples } from "./TypeSpecimen";
+import SettingHelp from "./SettingHelp";
 
 type Tab = "playground" | "glyphs" | "export";
 
@@ -91,7 +93,10 @@ function Range({
   return (
     <div className="range-field">
       <div className="field-line">
-        <label>{label}</label>
+        <span className="setting-label">
+          <span>{label}</span>
+          <SettingHelp label={label} />
+        </span>
         <span className="number-wrap">
           <input
             aria-label={`${label} value`}
@@ -136,21 +141,29 @@ function Toggle({
   value: boolean;
   onChange: () => void;
 }) {
+  const id = useId();
   return (
-    <button
-      className="toggle-row"
-      role="switch"
-      aria-checked={value}
-      onClick={onChange}
-    >
-      <span>
-        {label}
-        {description && <small>{description}</small>}
+    <div className="toggle-row">
+      <span className="toggle-copy">
+        <span className="setting-label">
+          <label htmlFor={id}>{label}</label>
+          <SettingHelp label={label} />
+        </span>
+        {description && <small id={`${id}-description`}>{description}</small>}
       </span>
-      <span className={`switch ${value ? "on" : ""}`}>
+      <button
+        id={id}
+        type="button"
+        className={`switch ${value ? "on" : ""}`}
+        role="switch"
+        aria-label={label}
+        aria-describedby={description ? `${id}-description` : undefined}
+        aria-checked={value}
+        onClick={onChange}
+      >
         <i />
-      </span>
-    </button>
+      </button>
+    </div>
   );
 }
 function Section({
@@ -822,10 +835,14 @@ export default function App() {
           aria-label="ตัวเลือกปรับแต่งฟอนต์"
         >
           <Section title="Font source">
-            <label className="select-label">
-              Custom Font
+            <div className="select-label">
+              <span className="setting-label">
+                <label htmlFor="custom-font">Custom Font</label>
+                <SettingHelp label="Custom Font" />
+              </span>
               <span className="select-wrap">
                 <select
+                  id="custom-font"
                   value={face.id}
                   onChange={(e) => assign(e.target.value)}
                 >
@@ -837,7 +854,7 @@ export default function App() {
                 </select>
                 <ChevronDown size={14} />
               </span>
-            </label>
+            </div>
             {selected && (
               <p className="font-support">
                 <CheckCircle2 size={12} />
@@ -1158,14 +1175,18 @@ export default function App() {
                     <span className="micro-badge orange">WOFF2 + CSS</span>
                   </div>
                   <p>ชุดฟอนต์พร้อมใช้ สำหรับเว็บที่พูดได้ทั้งสองภาษา</p>
-                  <label className="text-field">
-                    Font family name
+                  <div className="text-field">
+                    <span className="setting-label">
+                      <label htmlFor="font-family-name">Font family name</label>
+                      <SettingHelp label="Font family name" />
+                    </span>
                     <input
+                      id="font-family-name"
                       value={settings.family}
                       maxLength={64}
                       onChange={(e) => patch("family", e.target.value)}
                     />
-                  </label>
+                  </div>
                   {!validFamily && (
                     <p className="warning-text helper">
                       ใช้ชื่อภาษาอังกฤษขึ้นต้นด้วย A–Z ตามด้วยตัวอักษร ตัวเลข
