@@ -97,14 +97,12 @@ export default function TypeSpecimen({
         </div>
         <div className="specimen-fonts">
           <div className="specimen-custom-name">
-            <span className="specimen-dot custom" />
             <span>
               Custom Font
               <strong>{selected?.info.name ?? "กำลังโหลดฟอนต์…"}</strong>
             </span>
           </div>
           <div className="specimen-default-source">
-            <span className="specimen-dot" />
             <label>
               Default
               <span className="select-wrap">
@@ -212,10 +210,7 @@ export default function TypeSpecimen({
                           } as CSSProperties
                         }
                       >
-                        <small>
-                          <span className="specimen-dot custom" />
-                          CUSTOM
-                        </small>
+                        <small>CUSTOM</small>
                         <p
                           className="live-type"
                           style={{ ...common, fontWeight: weight }}
@@ -231,10 +226,7 @@ export default function TypeSpecimen({
                           } as CSSProperties
                         }
                       >
-                        <small>
-                          <span className="specimen-dot" />
-                          DEFAULT
-                        </small>
+                        <small>DEFAULT</small>
                         <p
                           style={{
                             ...common,

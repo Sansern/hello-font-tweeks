@@ -32,12 +32,15 @@
   --color-text-primary: var(--color-neutral-900);
   --color-surface-page: var(--color-neutral-100);
   --color-accent: #e75e3b;
-  --color-text-muted: var(--color-neutral-500);
+  --color-text-accent: #9f3f24;
+  --color-text-muted: var(--color-neutral-600);
   --color-border-default: var(--color-neutral-200);
   --color-success: var(--color-neutral-600);
   --color-transparent: transparent;
-  --color-text-on-accent: var(--color-white);
+  --color-text-on-accent: var(--color-neutral-950);
   --color-selection: #f7d5c4;
+  --color-text-selection: var(--color-neutral-900);
+  --color-text-placeholder: var(--color-neutral-600);
   --color-accent-hover: #d75231;
   /* Light surfaces */
   --color-surface-project: var(--color-white);
@@ -79,92 +82,92 @@
   --color-surface-specimen-default: var(--color-neutral-50);
   --color-surface-library: var(--color-white);
   /* Text and icons */
-  --color-text-workspace-badge: var(--color-neutral-400);
+  --color-text-workspace-badge: var(--color-neutral-600);
   --color-icon-project: var(--color-neutral-500);
-  --color-text-nav: var(--color-neutral-500);
-  --color-text-nav-index: var(--color-neutral-400);
-  --color-text-nav-active: #bf5536;
-  --color-text-nav-index-active: #c68b73;
-  --color-text-font-meta: var(--color-neutral-400);
-  --color-icon-font-remove: var(--color-neutral-400);
+  --color-text-nav: var(--color-neutral-600);
+  --color-text-nav-index: var(--color-neutral-600);
+  --color-text-nav-active: var(--color-text-accent);
+  --color-text-nav-index-active: var(--color-text-accent);
+  --color-text-font-meta: var(--color-neutral-600);
+  --color-icon-font-remove: var(--color-neutral-600);
   --color-icon-upload: var(--color-neutral-500);
-  --color-text-upload-description: var(--color-neutral-400);
-  --color-text-upload-formats: var(--color-neutral-400);
+  --color-text-upload-description: var(--color-neutral-600);
+  --color-text-upload-formats: var(--color-neutral-600);
   --color-icon-local: var(--color-neutral-500);
-  --color-text-local-description: var(--color-neutral-400);
-  --color-text-library-help: var(--color-neutral-400);
-  --color-text-autosave: var(--color-neutral-400);
-  --color-icon-autosave: var(--color-neutral-400);
-  --color-text-eyebrow: var(--color-neutral-400);
-  --color-text-heading-secondary: var(--color-neutral-500);
-  --color-text-intro: var(--color-neutral-500);
-  --color-text-subtle: var(--color-neutral-400);
-  --color-text-micro-label: var(--color-neutral-400);
-  --color-icon-default: var(--color-neutral-400);
-  --color-text-sample-tab: var(--color-neutral-400);
+  --color-text-local-description: var(--color-neutral-600);
+  --color-text-library-help: var(--color-neutral-600);
+  --color-text-autosave: var(--color-neutral-600);
+  --color-icon-autosave: var(--color-neutral-600);
+  --color-text-eyebrow: var(--color-neutral-600);
+  --color-text-heading-secondary: var(--color-neutral-600);
+  --color-text-intro: var(--color-neutral-600);
+  --color-text-subtle: var(--color-neutral-600);
+  --color-text-micro-label: var(--color-neutral-600);
+  --color-icon-default: var(--color-neutral-600);
+  --color-text-sample-tab: var(--color-neutral-600);
   --color-text-tab-selected: var(--color-neutral-700);
-  --color-text-preview-footnote: var(--color-neutral-400);
-  --color-text-preview-status: var(--color-neutral-400);
+  --color-text-preview-footnote: var(--color-neutral-600);
+  --color-text-preview-status: var(--color-neutral-600);
   --color-text-preview-success: var(--color-neutral-600);
-  --color-text-footer: var(--color-neutral-400);
-  --color-icon-controls: var(--color-neutral-400);
+  --color-text-footer: var(--color-neutral-600);
+  --color-icon-controls: var(--color-neutral-600);
   --color-text-section-heading: var(--color-neutral-700);
-  --color-text-badge: var(--color-neutral-400);
-  --color-text-badge-accent: #c07f56;
-  --color-text-select-label: var(--color-neutral-500);
+  --color-text-badge: var(--color-neutral-600);
+  --color-text-badge-accent: var(--color-text-accent);
+  --color-text-select-label: var(--color-neutral-600);
   --color-text-select-value: var(--color-neutral-700);
-  --color-icon-select: var(--color-neutral-400);
-  --color-text-font-support: var(--color-neutral-500);
-  --color-text-field-label: var(--color-neutral-500);
+  --color-icon-select: var(--color-neutral-600);
+  --color-text-font-support: var(--color-neutral-600);
+  --color-text-field-label: var(--color-neutral-600);
   --color-text-number-value: var(--color-neutral-700);
-  --color-text-number-unit: var(--color-neutral-400);
-  --color-text-helper: var(--color-neutral-500);
+  --color-text-number-unit: var(--color-neutral-600);
+  --color-text-helper: var(--color-neutral-600);
   --color-text-toggle: var(--color-neutral-600);
-  --color-text-toggle-description: var(--color-neutral-400);
+  --color-text-toggle-description: var(--color-neutral-600);
   --color-icon-tip: var(--color-neutral-500);
   --color-text-tip-heading: var(--color-neutral-600);
-  --color-text-tip-body: var(--color-neutral-500);
-  --color-text-warning: #bd7845;
+  --color-text-tip-body: var(--color-neutral-600);
+  --color-text-warning: #9a4d22;
   --color-text-error: #a55a35;
   --color-text-toast: var(--color-white);
-  --color-text-control-caption: var(--color-neutral-400);
-  --color-text-glyph-search: var(--color-neutral-500);
-  --color-text-coverage-value: var(--color-neutral-500);
-  --color-text-glyph-codepoint: var(--color-neutral-400);
-  --color-text-metadata-label: var(--color-neutral-400);
-  --color-text-metadata-value: var(--color-neutral-500);
-  --color-text-metadata-heading: var(--color-neutral-400);
-  --color-text-feature-tag: var(--color-neutral-400);
-  --color-text-license: var(--color-neutral-400);
-  --color-text-empty-state: var(--color-neutral-400);
-  --color-text-export-description: var(--color-neutral-400);
-  --color-text-export-label: var(--color-neutral-400);
-  --color-text-export-input: var(--color-neutral-500);
-  --color-icon-export-file: var(--color-neutral-400);
-  --color-text-export-filename: var(--color-neutral-500);
-  --color-text-export-file-description: var(--color-neutral-400);
-  --color-text-export-file-status: var(--color-neutral-400);
-  --color-text-code-heading: var(--color-neutral-400);
-  --color-text-code-action: var(--color-neutral-400);
-  --color-text-usage-note: var(--color-neutral-400);
-  --color-text-inline-code: var(--color-neutral-500);
-  --color-text-help-step: var(--color-neutral-500);
-  --color-text-help-description: var(--color-neutral-400);
-  --color-text-specimen-count: var(--color-neutral-400);
-  --color-text-specimen-count-separator: var(--color-neutral-300);
-  --color-text-specimen-font-label: var(--color-neutral-400);
+  --color-text-control-caption: var(--color-neutral-600);
+  --color-text-glyph-search: var(--color-neutral-600);
+  --color-text-coverage-value: var(--color-neutral-600);
+  --color-text-glyph-codepoint: var(--color-neutral-600);
+  --color-text-metadata-label: var(--color-neutral-600);
+  --color-text-metadata-value: var(--color-neutral-600);
+  --color-text-metadata-heading: var(--color-neutral-600);
+  --color-text-feature-tag: var(--color-neutral-600);
+  --color-text-license: var(--color-neutral-600);
+  --color-text-empty-state: var(--color-neutral-600);
+  --color-text-export-description: var(--color-neutral-600);
+  --color-text-export-label: var(--color-neutral-600);
+  --color-text-export-input: var(--color-neutral-600);
+  --color-icon-export-file: var(--color-neutral-600);
+  --color-text-export-filename: var(--color-neutral-600);
+  --color-text-export-file-description: var(--color-neutral-600);
+  --color-text-export-file-status: var(--color-neutral-600);
+  --color-text-code-heading: var(--color-neutral-600);
+  --color-text-code-action: var(--color-neutral-600);
+  --color-text-usage-note: var(--color-neutral-600);
+  --color-text-inline-code: var(--color-neutral-600);
+  --color-text-help-step: var(--color-neutral-600);
+  --color-text-help-description: var(--color-neutral-600);
+  --color-text-specimen-count: var(--color-neutral-600);
+  --color-text-specimen-count-separator: var(--color-neutral-600);
+  --color-text-specimen-font-label: var(--color-neutral-600);
   --color-text-specimen-font-name: var(--color-neutral-800);
-  --color-text-specimen-editor-label: var(--color-neutral-500);
-  --color-text-specimen-editor-hint: var(--color-neutral-400);
+  --color-text-specimen-editor-label: var(--color-neutral-600);
+  --color-text-specimen-editor-hint: var(--color-neutral-600);
   --color-text-specimen-editor-value: var(--color-neutral-700);
-  --color-text-specimen-caption: var(--color-neutral-400);
-  --color-text-specimen-caption-heading: var(--color-neutral-400);
+  --color-text-specimen-caption: var(--color-neutral-600);
+  --color-text-specimen-caption-heading: var(--color-neutral-600);
   --color-text-specimen-sample: var(--color-neutral-900);
-  --color-text-specimen-weight: var(--color-neutral-500);
-  --color-text-specimen-size-label: var(--color-neutral-400);
-  --color-text-specimen-size-value: var(--color-neutral-500);
-  --color-text-specimen-custom-label: #af8d70;
-  --color-text-specimen-default-label: var(--color-neutral-500);
+  --color-text-specimen-weight: var(--color-neutral-600);
+  --color-text-specimen-size-label: var(--color-neutral-600);
+  --color-text-specimen-size-value: var(--color-neutral-600);
+  --color-text-specimen-custom-label: var(--color-text-accent);
+  --color-text-specimen-default-label: var(--color-neutral-600);
   /* Borders and control colors */
   --color-border-workspace-badge: var(--color-neutral-250);
   --color-border-font-selected: var(--color-neutral-200);
@@ -208,6 +211,8 @@
   --color-text-code: var(--color-neutral-200);
   --color-surface-canvas-dark: var(--color-neutral-900);
   --color-text-canvas-dark: var(--color-neutral-200);
+  --color-text-accent-dark: #ffb199;
+  --color-surface-tool-active-dark: var(--color-neutral-700);
   --color-border-canvas-dark: var(--color-neutral-600);
   --color-border-tabs-dark: var(--color-neutral-600);
   --color-surface-tab-selected-dark: var(--color-neutral-700);
@@ -300,6 +305,7 @@ p {
 }
 ::selection {
   background: var(--color-selection);
+  color: var(--color-text-selection);
 }
 .sr-only {
   position: absolute;
@@ -685,11 +691,11 @@ h1 > span {
   border-radius: 3px;
 }
 .icon-button.enabled {
-  color: var(--color-accent);
+  color: var(--color-text-accent);
   background: var(--color-surface-tool-active);
 }
 .icon-button:hover {
-  color: var(--color-accent);
+  color: var(--color-text-accent);
 }
 .tool-divider {
   width: 1px;
@@ -1315,9 +1321,33 @@ h1 > span {
   margin-top: 22px;
 }
 .dark-canvas {
+  /* Override foreground tokens together with their dark preview surfaces. */
   background: var(--color-surface-canvas-dark);
   color: var(--color-text-canvas-dark);
   border-color: var(--color-border-canvas-dark);
+  --color-text-accent: var(--color-text-accent-dark);
+  --color-text-specimen-custom-label: var(--color-text-accent-dark);
+  --color-surface-tool-active: var(--color-surface-tool-active-dark);
+  --color-icon-default: var(--color-neutral-300);
+  --color-icon-select: var(--color-neutral-300);
+  --color-surface-select: var(--color-neutral-900);
+  --color-border-select: var(--color-neutral-500);
+  --color-text-select-value: var(--color-neutral-200);
+  --color-text-placeholder: var(--color-neutral-300);
+  --color-text-sample-tab: var(--color-neutral-300);
+  --color-text-specimen-font-label: var(--color-neutral-300);
+  --color-text-specimen-editor-label: var(--color-neutral-300);
+  --color-text-specimen-editor-hint: var(--color-neutral-400);
+  --color-text-preview-footnote: var(--color-neutral-400);
+  --color-text-specimen-caption: var(--color-neutral-300);
+  --color-text-specimen-caption-heading: var(--color-neutral-300);
+  --color-text-specimen-size-label: var(--color-neutral-400);
+  --color-text-specimen-size-value: var(--color-neutral-300);
+  --color-text-specimen-default-label: var(--color-neutral-400);
+  --color-text-preview-status: var(--color-neutral-400);
+  --color-text-preview-success: var(--color-neutral-300);
+  --color-text-warning: var(--color-text-accent-dark);
+  color-scheme: dark;
 }
 .dark-canvas .sample-tabs {
   border-color: var(--color-border-tabs-dark);
@@ -1418,17 +1448,6 @@ h1 > span {
   color: var(--color-text-specimen-font-name);
   margin-top: 5px;
 }
-.specimen-dot {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-status-default-font);
-  flex-shrink: 0;
-}
-.specimen-dot.custom {
-  background: var(--color-accent);
-}
 .specimen-default-source {
   margin-left: auto;
 }
@@ -1472,7 +1491,7 @@ h1 > span {
 }
 .specimen-editor .preview-footnote {
   margin-top: 10px;
-  font-size: 9px;
+  font-size: 11px;
   gap: 10px;
   flex-wrap: wrap;
 }
@@ -1520,7 +1539,7 @@ h1 > span {
 .specimen-table thead th:first-child {
   width: 66px;
   padding: 18px 10px;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.6px;
   left: 0;
   z-index: 3;
@@ -1541,7 +1560,7 @@ h1 > span {
 }
 .specimen-table tbody th > span {
   display: block;
-  font-size: 8px;
+  font-size: 10px;
   color: var(--color-text-specimen-size-label);
   letter-spacing: 0.5px;
 }
@@ -1569,7 +1588,7 @@ h1 > span {
   gap: 5px;
   color: var(--color-text-specimen-custom-label);
   font-family: Inter, NotoThai, sans-serif;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.8px;
   margin-bottom: 10px;
 }
@@ -2075,4 +2094,9 @@ h1 > span {
     width: 20px;
     height: 20px;
   }
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-placeholder);
+  opacity: 1;
 }
