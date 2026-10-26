@@ -231,8 +231,8 @@ export default function App() {
     const previous = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     const panel = document.getElementById("fine-tune");
-    const closeButton = panel?.querySelector<HTMLButtonElement>(".tune-close");
-    closeButton?.focus();
+    const content = panel?.querySelector<HTMLElement>(".controls-content");
+    content?.focus();
     document.body.style.overflow = "hidden";
     const resize = () => {
       if (!viewport.matches) setShowTune(false);
@@ -609,6 +609,8 @@ export default function App() {
         <nav className="top-nav" aria-label="เครื่องมือ">
           <button
             className={tab === "playground" ? "active" : ""}
+            aria-label="Playground"
+            title="Playground"
             onClick={() => {
               setTab("playground");
               setShowTune(false);
@@ -616,10 +618,13 @@ export default function App() {
             }}
           >
             <SlidersHorizontal size={18} />
-            Playground<span>01</span>
+            <span className="nav-label">Playground</span>
+            <span className="nav-index">01</span>
           </button>
           <button
             className={tab === "glyphs" ? "active" : ""}
+            aria-label="Font inspector"
+            title="Font inspector"
             onClick={() => {
               setTab("glyphs");
               setShowTune(false);
@@ -627,10 +632,13 @@ export default function App() {
             }}
           >
             <Grid2X2 size={18} />
-            Font inspector<span>02</span>
+            <span className="nav-label">Font inspector</span>
+            <span className="nav-index">02</span>
           </button>
           <button
             className={tab === "export" ? "active" : ""}
+            aria-label="Export & use"
+            title="Export & use"
             onClick={() => {
               setTab("export");
               setShowTune(false);
@@ -638,7 +646,8 @@ export default function App() {
             }}
           >
             <Code2 size={18} />
-            Export & use<span>03</span>
+            <span className="nav-label">Export & use</span>
+            <span className="nav-index">03</span>
           </button>
         </nav>
         <div className="top-actions">
@@ -806,33 +815,6 @@ export default function App() {
         role={showTune ? "dialog" : undefined}
         aria-modal={showTune || undefined}
       >
-        <div className="controls-header">
-          <div>
-            <SlidersHorizontal size={17} />
-            <strong>Fine-tune</strong>
-          </div>
-          <button
-            className="icon-button"
-            title="รีเซ็ตค่าปรับแต่ง"
-            onClick={() => {
-              setSettings((p) => ({
-                ...initialSettings,
-                font: { ...p.font, scale: 100, override_metrics: false },
-              }));
-              setToast("รีเซ็ตค่าปรับแต่งแล้ว");
-            }}
-          >
-            <RotateCcw size={15} />
-          </button>
-          <button
-            className="icon-button tune-close"
-            aria-label="ปิด Fine-tune"
-            onClick={() => setShowTune(false)}
-          >
-            <X size={18} />
-          </button>
-        </div>
-        <div className="control-caption">ONE FONT · ALL LANGUAGES</div>
         <div
           className="controls-content"
           tabIndex={0}
@@ -978,11 +960,45 @@ export default function App() {
               </p>
             </div>
           </div>
+          <div className="controls-actions">
+            <button
+              className="button reset-button"
+              onClick={() => {
+                setSettings((p) => ({
+                  ...initialSettings,
+                  font: { ...p.font, scale: 100, override_metrics: false },
+                }));
+                setToast("รีเซ็ตค่าปรับแต่งแล้ว");
+              }}
+            >
+              <RotateCcw size={14} />
+              <span>Reset</span>
+            </button>
+            <button
+              className="button tune-close"
+              aria-label="ปิด Fine-tune"
+              onClick={() => setShowTune(false)}
+            >
+              <X size={16} />
+              <span>ปิด</span>
+            </button>
+          </div>
         </div>
       </aside>
 
       <div className="main-shell">
-        <main>
+        <main
+          className={
+            tab === "playground" ? "preview-workspace" : "detail-workspace"
+          }
+          aria-label={
+            tab === "playground"
+              ? "Preview"
+              : tab === "glyphs"
+                ? "Font inspector"
+                : "Export & use"
+          }
+        >
           {error && (
             <div className="error-banner" role="alert">
               <Info size={17} />
@@ -995,39 +1011,6 @@ export default function App() {
               </button>
             </div>
           )}
-          <div className="page-intro">
-            <div>
-              <div className="eyebrow">
-                <span /> A LITTLE TWEAK. A BETTER TYPE.
-              </div>
-              <h1>
-                {tab === "playground" ? (
-                  <>
-                    หนึ่งฟอนต์ <span>เทียบให้ชัด.</span>
-                  </>
-                ) : tab === "glyphs" ? (
-                  <>
-                    รู้จักฟอนต์ <span>ทุกตัวอักษร.</span>
-                  </>
-                ) : (
-                  <>
-                    ฟอนต์พร้อมแล้ว <span>ไปสร้างกันต่อ.</span>
-                  </>
-                )}
-              </h1>
-              <p>
-                {tab === "playground"
-                  ? "เปรียบเทียบ Custom Font กับ Default ผ่านข้อความเดียวกัน หลายขนาด และ 4 น้ำหนัก"
-                  : tab === "glyphs"
-                    ? "สำรวจตัวอักษรที่รองรับ โครงสร้างฟอนต์ และ OpenType features จากไฟล์จริง"
-                    : "ส่งออกชุดฟอนต์ที่เบาลง พร้อม CSS ที่นำไปใช้ในโปรเจกต์ได้ทันที"}
-              </p>
-            </div>
-            <div className="specimen-count">
-              4 weights <span>×</span> 11 sizes
-            </div>
-          </div>
-
           <div className="workbench">
             <div className="canvas-column">
               {tab === "playground" && (
@@ -1279,13 +1262,6 @@ export default function App() {
                   </div>
                 </section>
               )}
-              <footer className="canvas-footer">
-                <span>
-                  <span className="status-dot" />
-                  LOCAL-FIRST WORKSPACE
-                </span>
-                <span>Thoughtful type, in every language.</span>
-              </footer>
             </div>
           </div>
         </main>
