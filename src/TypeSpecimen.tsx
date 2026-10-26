@@ -1,5 +1,13 @@
-import { useState, type CSSProperties } from "react";
-import { CheckCircle2, ChevronDown, Grid2X2, Info, Type } from "lucide-react";
+import { useId, useRef, useState, type CSSProperties } from "react";
+import {
+  CheckCircle2,
+  ChevronDown,
+  Grid2X2,
+  Info,
+  TextCursorInput,
+  Type,
+  X,
+} from "lucide-react";
 import type { FontAsset, Settings } from "./types";
 import SettingHelp from "./SettingHelp";
 
@@ -26,10 +34,15 @@ const sizes = [
   ["4XL", 36],
 ] as const;
 const weights = [
+  [100, "Thin"],
+  [200, "Extra Light"],
+  [300, "Light"],
   [400, "Regular"],
   [500, "Medium"],
   [600, "Semibold"],
   [700, "Bold"],
+  [800, "Extra Bold"],
+  [900, "Black"],
 ] as const;
 
 interface Props {
@@ -51,6 +64,10 @@ export default function TypeSpecimen({
   onSampleChange,
   missing,
 }: Props) {
+  const editorId = useId();
+  const editorInput = useRef<HTMLTextAreaElement>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [editorPosition, setEditorPosition] = useState({ top: 78, right: 12 });
   const [dark, setDark] = useState(false);
   const [guides, setGuides] = useState(false);
   const [baseline, setBaseline] = useState("system");
@@ -62,69 +79,16 @@ export default function TypeSpecimen({
       className={`preview-panel specimen-panel ${dark ? "dark-canvas" : ""}`}
       aria-label="เปรียบเทียบ Custom Font กับ Default"
     >
-      <div
-        className="specimen-scroll"
-        tabIndex={0}
-        role="region"
-        aria-label="Preview text และ Type Specimen เลื่อนดูได้"
-      >
-        <div className="preview-toolbar">
-          <div className="preview-title">
-            <Type size={18} />
-            <strong>Preview text</strong>
-            <span className="live-dot" />
-          </div>
-          <div className="preview-tools">
-            <button
-              className={`icon-button ${guides ? "enabled" : ""}`}
-              title="แสดงเส้นบรรทัด"
-              aria-pressed={guides}
-              onClick={() => setGuides(!guides)}
-            >
-              <Grid2X2 size={16} />
-            </button>
-            <span className="tool-divider" />
-            <button
-              className={`color-button light ${!dark ? "picked" : ""}`}
-              title="พื้นหลังสว่าง"
-              onClick={() => setDark(false)}
-            />
-            <button
-              className={`color-button night ${dark ? "picked" : ""}`}
-              title="พื้นหลังเข้ม"
-              onClick={() => setDark(true)}
-            />
-          </div>
+      <nav className="preview-toolbar" aria-label="Preview text controls">
+        <div className="preview-title">
+          <Type size={14} />
+          <strong>Preview text</strong>
         </div>
-        <div className="specimen-fonts">
-          <div className="specimen-custom-name">
-            <span>
-              Custom Font
-              <strong>{selected?.info.name ?? "กำลังโหลดฟอนต์…"}</strong>
-            </span>
-          </div>
-          <div className="specimen-default-source">
-            <div>
-              <span className="setting-label">
-                <label htmlFor="default-font">Default</label>
-                <SettingHelp label="Default font" />
-              </span>
-              <span className="select-wrap">
-                <select
-                  id="default-font"
-                  aria-label="Default font สำหรับเปรียบเทียบ"
-                  value={baseline}
-                  onChange={(e) => setBaseline(e.target.value)}
-                >
-                  <option value="system">System sans-serif</option>
-                  <option value="original">Original font · ก่อนปรับ</option>
-                </select>
-                <ChevronDown size={14} />
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="sample-tabs">
+        <div
+          className="sample-tabs"
+          role="group"
+          aria-label="ภาษาของข้อความตัวอย่าง"
+        >
           {(
             [
               ["mixed", "ไทย + English"],
@@ -136,45 +100,151 @@ export default function TypeSpecimen({
             <button
               key={key}
               className={sample === key ? "active" : ""}
+              aria-pressed={sample === key}
               onClick={() => onSampleChange(key)}
             >
               {label}
             </button>
           ))}
         </div>
-        <div className="specimen-editor">
-          <label htmlFor="specimen-text">
-            ข้อความทดสอบ <span>ใช้ข้อความเดียวกันทุกช่อง</span>
-          </label>
-          <textarea
-            id="specimen-text"
-            aria-label="ข้อความตัวอย่าง แก้ไขได้"
-            value={text}
-            spellCheck={false}
-            onChange={(e) => onTextChange(e.target.value)}
-            rows={2}
+        <div className="preview-tools">
+          <button
+            type="button"
+            className={`icon-button ${editorOpen ? "enabled" : ""}`}
+            title="แก้ไขข้อความทดสอบ"
+            aria-label="แก้ไขข้อความทดสอบ"
+            aria-haspopup="dialog"
+            aria-expanded={editorOpen}
+            aria-controls={editorId}
+            popoverTarget={editorId}
+            onClick={(event) => {
+              const rect = event.currentTarget.getBoundingClientRect();
+              setEditorPosition({
+                top: rect.bottom + 8,
+                right: Math.max(12, window.innerWidth - rect.right),
+              });
+            }}
+            onKeyDown={(event) => {
+              if (editorOpen && event.key === "Escape") event.stopPropagation();
+            }}
+          >
+            <TextCursorInput size={15} />
+          </button>
+          <button
+            className={`icon-button ${guides ? "enabled" : ""}`}
+            title="แสดงเส้นบรรทัด"
+            aria-pressed={guides}
+            onClick={() => setGuides(!guides)}
+          >
+            <Grid2X2 size={16} />
+          </button>
+          <span className="tool-divider" />
+          <button
+            className={`color-button light ${!dark ? "picked" : ""}`}
+            title="พื้นหลังสว่าง"
+            onClick={() => setDark(false)}
           />
-          <div className="preview-footnote">
-            <span>
-              <Type size={13} />
-              แก้ข้อความด้านบนเพื่อเปรียบเทียบทุกขนาดพร้อมกัน
-            </span>
-            <span>{Array.from(text).length} characters</span>
-          </div>
+          <button
+            className={`color-button night ${dark ? "picked" : ""}`}
+            title="พื้นหลังเข้ม"
+            onClick={() => setDark(true)}
+          />
         </div>
-        <div className="specimen-grid-caption">
-          <span>TYPE SPECIMEN</span>
+      </nav>
+      <div
+        id={editorId}
+        popover="auto"
+        role="dialog"
+        aria-label="แก้ไขข้อความทดสอบ"
+        className="specimen-editor specimen-editor-popover"
+        style={editorPosition}
+        onToggle={(event) => {
+          const open = event.newState === "open";
+          setEditorOpen(open);
+          if (open) editorInput.current?.focus();
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") event.stopPropagation();
+        }}
+      >
+        <button
+          type="button"
+          className="icon-button specimen-editor-close"
+          aria-label="ปิดข้อความทดสอบ"
+          popoverTarget={editorId}
+          popoverTargetAction="hide"
+        >
+          <X size={15} />
+        </button>
+        <label htmlFor="specimen-text">
+          ข้อความทดสอบ <span>ใช้ข้อความเดียวกันทุกช่อง</span>
+        </label>
+        <textarea
+          ref={editorInput}
+          id="specimen-text"
+          aria-label="ข้อความตัวอย่าง แก้ไขได้"
+          value={text}
+          spellCheck={false}
+          onChange={(e) => onTextChange(e.target.value)}
+          rows={2}
+        />
+        <div className="preview-footnote">
           <span>
-            Base {settings.font_size}px · Line height {settings.line_height}
-            {selected && !isVariable
-              ? ` · ไฟล์นี้มีน้ำหนัก ${selected.info.weight_min}; น้ำหนักอื่นอาจถูกจำลองโดยเบราว์เซอร์`
-              : ""}
+            <Type size={13} />
+            แก้ข้อความด้านบนเพื่อเปรียบเทียบทุกขนาดพร้อมกัน
           </span>
+          <span>{Array.from(text).length} characters</span>
+        </div>
+      </div>
+      <div
+        className="specimen-scroll"
+        tabIndex={0}
+        role="region"
+        aria-label="Preview text และ Type Specimen เลื่อนดูได้"
+      >
+        <div className="specimen-overview">
+          <div className="specimen-fonts">
+            <div className="specimen-custom-name">
+              <span>
+                Custom Font
+                <strong>{selected?.info.name ?? "กำลังโหลดฟอนต์…"}</strong>
+              </span>
+            </div>
+            <div className="specimen-default-source">
+              <div>
+                <span className="setting-label">
+                  <label htmlFor="default-font">Default</label>
+                  <SettingHelp label="Default font" />
+                </span>
+                <span className="select-wrap">
+                  <select
+                    id="default-font"
+                    aria-label="Default font สำหรับเปรียบเทียบ"
+                    value={baseline}
+                    onChange={(e) => setBaseline(e.target.value)}
+                  >
+                    <option value="system">System sans-serif</option>
+                    <option value="original">Original font · ก่อนปรับ</option>
+                  </select>
+                  <ChevronDown size={14} />
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="specimen-grid-caption">
+            <span>TYPE SPECIMEN</span>
+            <span>
+              Base {settings.font_size}px · Line height {settings.line_height}
+              {selected && !isVariable
+                ? ` · ไฟล์นี้มีน้ำหนัก ${selected.info.weight_min}; น้ำหนักอื่นอาจถูกจำลองโดยเบราว์เซอร์`
+                : ""}
+            </span>
+          </div>
         </div>
         <table className={`specimen-table ${guides ? "show-guides" : ""}`}>
           <caption className="sr-only">
             Custom Font เทียบกับ Default: ขนาด 11 ถึง 36px ที่ base 16px
-            และน้ำหนัก 400, 500, 600, 700
+            และน้ำหนัก {weights.map(([weight]) => weight).join(", ")}
           </caption>
           <thead>
             <tr>

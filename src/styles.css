@@ -670,13 +670,7 @@ h1 > span {
   font-size: 14px;
   font-weight: 550;
 }
-.live-dot {
-  width: 5px;
-  height: 5px;
-  background: var(--color-status-live);
-  border-radius: 50%;
-  margin-left: 1px;
-}
+
 .preview-tools {
   display: flex;
   align-items: center;
@@ -908,7 +902,7 @@ h1 > span {
   appearance: none;
   -webkit-appearance: none;
   width: 100%;
-  height: 3px;
+  height: 24px;
   background: linear-gradient(
     to right,
     var(--color-range-filled) 0%,
@@ -916,6 +910,9 @@ h1 > span {
     var(--color-range-track) var(--range),
     var(--color-range-track) 100%
   );
+  background-size: 100% 3px;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 3px;
   cursor: pointer;
   margin: 0;
@@ -923,16 +920,18 @@ h1 > span {
 }
 .range-field input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--color-surface-range-thumb);
   border: 1.5px solid var(--color-border-range-thumb);
   box-shadow: 0 1px 2px var(--color-shadow-control);
 }
 .range-field input[type="range"]::-moz-range-thumb {
-  width: 9px;
-  height: 9px;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--color-surface-range-thumb);
   border: 1.5px solid var(--color-border-range-thumb);
@@ -1512,7 +1511,7 @@ h1 > span {
 }
 .specimen-table {
   width: 100%;
-  min-width: 1040px;
+  min-width: 2262px;
   border-collapse: separate;
   border-spacing: 0;
   table-layout: fixed;
@@ -2165,4 +2164,112 @@ textarea::placeholder {
 }
 .toggle-row > .switch {
   border: 0;
+}
+
+/* The secondary navigation stays above the single specimen scroll area. */
+.specimen-panel .preview-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex: 0 0 35px;
+  height: 35px;
+  min-height: 35px;
+  max-height: 35px;
+  gap: 12px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-surface-canvas);
+}
+.preview-toolbar .preview-title {
+  flex-shrink: 0;
+  gap: 5px;
+  white-space: nowrap;
+}
+.preview-toolbar .preview-title strong {
+  font-size: 12px;
+}
+.preview-toolbar .sample-tabs {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin-right: auto;
+  padding: 0;
+  gap: 2px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  border: 0;
+  scrollbar-width: none;
+}
+.preview-toolbar .sample-tabs::-webkit-scrollbar {
+  display: none;
+}
+.preview-toolbar .sample-tabs button {
+  flex-shrink: 0;
+  height: 24px;
+  padding: 0 7px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.preview-toolbar .preview-tools {
+  flex-shrink: 0;
+  gap: 8px;
+}
+.preview-toolbar .icon-button {
+  width: 24px;
+  height: 24px;
+}
+.specimen-panel .specimen-fonts {
+  padding-top: 16px;
+}
+.specimen-editor-popover {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: 560px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 90px);
+  overflow: auto;
+  border: 1px solid var(--color-border-specimen-editor);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px var(--color-shadow-floating-panel);
+  color: var(--color-text-primary);
+}
+.specimen-editor-popover > label {
+  padding-right: 28px;
+  flex-wrap: wrap;
+}
+.specimen-editor-popover textarea {
+  height: 120px;
+  min-height: 80px;
+}
+.specimen-editor-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+}
+.dark-canvas .preview-toolbar {
+  background: var(--color-surface-canvas-dark);
+  border-color: var(--color-border-specimen-grid-dark);
+}
+@media (max-width: 650px) {
+  .specimen-panel .preview-toolbar {
+    padding: 0 8px;
+    gap: 6px;
+  }
+  .preview-toolbar .preview-tools {
+    gap: 5px;
+  }
+}
+
+/* Keep preview metadata aligned to the viewport during horizontal scrolling. */
+.specimen-overview {
+  position: sticky;
+  left: 0;
+  width: 100%;
+  min-width: 0;
+  background: var(--color-surface-canvas);
+}
+.dark-canvas .specimen-overview {
+  background: var(--color-surface-canvas-dark);
 }
